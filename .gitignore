@@ -1,0 +1,15 @@
+/logs/*
+!/logs/README.md
+.idea
+**/settings.yml
+build/*
+config/settings.yml
+app.yaml
+.idea
+pmod-app/csv/*
+**/**/*.csv
+vids
+*.mp4
+_elevate-recoveries/vids/php-sql.mp4
+*.xlsx
+logs
