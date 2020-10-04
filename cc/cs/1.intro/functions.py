@@ -43,9 +43,22 @@ dads_age = calculate_age(2049, 1953)
 
 current_year = 2048
 
+
 def calculate_age(birth_year):
-  age = current_year - birth_year
-  return age
+    age = current_year - birth_year
+    return age
+
 
 print(current_year)
 print(calculate_age(70))
+
+
+def repeat_stuff(stuff, num_repeats=10):
+    return stuff * num_repeats
+
+
+lyrics = repeat_stuff("Row ", 3) + "Your Boat. "
+
+song = repeat_stuff(lyrics);
+
+print(song)
