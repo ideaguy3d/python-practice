@@ -41,11 +41,15 @@ squares.append(8 ** 8)
 # !! IMPORTANT !! slice assignment
 l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 l[0:3] = ['A', 'B', 'C']  # n+1 to replace index 2
-l[2:5] = [] # remove this portion of the list
+l[2:5] = []  # remove this portion of the list
 print(n + 'slice assignment: ' + str(l))
-l[:] = [] # clear the list
+l[:] = []  # clear the list
 
-
+# Fibonacci
+a, b = 0, 1
+while a < 10:
+    print(a, end=',')
+    a, b = b, b + a
 
 #
 #
