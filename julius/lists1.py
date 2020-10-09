@@ -1,3 +1,6 @@
+n = '\n--\n'
+print(n + '~ List Practice ~')
+
 # INTERESTING & NOTE WORTHY
 
 squares = [1, 4, 9, 15, 25, 36, 49]
@@ -31,4 +34,20 @@ def approx_size(size, kilobyte=True):
             return '{0:.1f} {1}'.format(size, suffix)
 
 
+# some list/sequence-type methods
+# .append()
+squares.append(8 ** 8)
+
+# !! IMPORTANT !! slice assignment
+l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+l[0:3] = ['A', 'B', 'C']  # n+1 to replace index 2
+l[2:5] = [] # remove this portion of the list
+print(n + 'slice assignment: ' + str(l))
+l[:] = [] # clear the list
+
+
+
 #
+#
+# end of file
+print(n * 3)
