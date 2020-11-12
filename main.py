@@ -1,11 +1,11 @@
 
 import sys
 sys.path.insert(0, "C:/Users/ideaguy3d/Documents/GitHub/py-algorithm-prac/julius")
-sys.path.insert(0, "C:/Users/ideaguy3d/Documents/GitHub/py-algorithm-prac/julius")
 
 # names of files I'm using to practice python
-import lists1   # lists 1
+# import lists1   # lists 1
 # import str1     # strings 1
+import control_flow
 
 
 # Press Shift+F10 to execute it or replace it with your code.
