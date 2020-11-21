@@ -1,6 +1,11 @@
+import sys # enables usage of argv
 from urllib.request import urlopen
 
 def basic_scalar_practice():
+    """
+    Just some basic scalar practice
+    :return:
+    """
     # binary, octal, hexadecimal
     b1 = 0b10
     o1 = 0o10
@@ -31,6 +36,10 @@ def basic_scalar_practice():
     ops = None is False  # is
 
 def basic_while_loop_practice():
+    """
+    Just some basic while loop practice
+    :return:
+    """
     # while and for loops
     c = 5
     while c != 0:
@@ -132,15 +141,34 @@ def get_sixty_north():
 # modules are basically files
 # special functions use __special__ in the pluralsight course we call it "dunder"
 # __name__ allows us to detect whether a module is run as a script or imported into another module
+#   if __name__ is "__main__" it is being ran as the main program
 # python module: convenient import of files
 # python script: convenient execution from a cli
 # python program: usually composed of many modules
-print(__name__)
+#print(__name__)
 
 # if __name__ is not '__main__' the module knows it's being imported into another module
 if __name__ == '__main__':
-    get_sixty_north()
+    print("File is not being imported")
+    #get_sixty_north()
+    print('\nProgram output:\n')
 
 
+# Value vs. Identity Equality
+p = [4,7,11]
+q = [4,7,11]
+print(p == q)
+print(p is q)
 
 
+# an interesting issue, leads to spam getting added over & over again if add_spam() is called without any args
+def add_spam(meal=[]):
+    meal.append('spam')
+    print (meal)
+
+# a better technique
+def add_spam_improved(meal=None):
+    if meal is None:
+        meal=[]
+    meal.append('spam')
+    print(meal)
