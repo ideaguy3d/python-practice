@@ -13,3 +13,4 @@ vids
 _elevate-recoveries/vids/php-sql.mp4
 *.xlsx
 logs
+*.pyc 
