@@ -1,10 +1,13 @@
 # this module is mainly meant to practice exceptions
 # also practicing comprehensions
+# also practicing generators
+# also practicing other functions from the python standard library: itertools
 import sys
 from math import factorial
 from pprint import pprint as pretty
 import os
 import glob
+from itertools import count, islice, chain
 
 
 def sqrt(x):
@@ -55,10 +58,55 @@ def dictionary_comprehension_1():
     capital_to_country = {capitol: country for country, capitol in country_to_capital.items()}
     pretty(capital_to_country)
 
+
+def is_prime(x):
+    if x < 2: return False
+    for i in range(2, int(sqrt(x)) + 1):
+        if x % i == 0: return False
+    return True
+
+
 def dictionary_comprehension_2():
-    pass
+    file_sizes = {os.path.realpath(p): os.stat(p).st_size for p in glob.glob('*.py')}
+    prime = [x for x in range(101) if is_prime(x)]
+    prime_square_divisors = {x * x: (1, x, x * x) for x in range(20) if is_prime(x)}
+    print(prime)
+    pretty(prime_square_divisors)
 
-dictionary_comprehension_1()
 
-# if __name__ == '__main__':
-#     main()
+def itertools_practice():
+    thousand_primes = islice((x for x in count() if is_prime(x)), 1000)
+    thousand_primes_list = list(thousand_primes)[-10:]
+    thousand_primes_sum = sum(islice((x for x in count() if is_prime(x)), 1000))
+
+    print('\n- itertools output:\n')
+    print(thousand_primes)
+    print(thousand_primes_list)
+    print(thousand_primes_sum)
+
+
+def any_all_practice():
+    has_any = any(is_prime(x) for x in range(1245, 1499))
+    has_all = all(is_prime(x) for x in range(1245, 1499))
+    all_title = all(name == name.title() for name in ['Sacramento', 'San Jose', 'Palo Alto'])
+
+
+def zip_practice():
+    list_1 = [3, 5, 1, 3, 56]
+    list_2 = [9, 8, 2, 76, 5]
+    list_3 = [5, 4, 2, 3, 9]
+    # for i in zip(list_1, list_2): print(i)
+    # for k, v in zip(list_1, list_2): print(f"{k} = {v}")
+    temperatures = chain(list_1, list_2, list_3)
+    temperatures_all = all(t > 0 for t in temperatures)
+    for temps in zip(list_1, list_2, list_3):
+        print(f"min = {min(temps):4.1f}, max = {max(temps):4.1f}, average = {sum(temps) / len(temps):4.1f}")
+
+
+# dictionary_comprehension_2()
+# itertools_practice()
+zip_practice()
+
+if __name__ == '__main__':
+    run_main = False
+    if run_main: main()
