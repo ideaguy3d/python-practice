@@ -83,23 +83,45 @@ class Flight:
             if row is not None
         )
 
+    def make_boarding_cards(self, card_printer):
+        for passenger, seat in sorted(self._passenger_seats()):
+            card_printer(passenger, seat, self.number(), self.aircraft_model())
+
+    def _passenger_seats(self):
+        row_numbers, seat_letters = self._aircraft.seating_plan()
+        for row in row_numbers:
+            for letter in seat_letters:
+                passenger = self._seating[row][letter]
+                if passenger is not None:
+                    yield passenger, f"{row}{letter}"
+
 
 class Aircraft:
-
-    def __init__(self, registration, model, num_rows, num_seats_per_row):
+    def __init__(self, registration):
         self._registration = registration
-        self._model = model
-        self._num_rows = num_rows
-        self._num_seats_per_row = num_seats_per_row
 
     def registration(self):
         return self._registration
 
+    def num_seats(self):
+        rows, row_seats = self.seating_plan()
+        return len(rows) * len(row_seats)
+
+
+class AirbusA319(Aircraft):
     def model(self):
-        return self._model
+        return "Airbus A319"
 
     def seating_plan(self):
-        return range(1, self._num_rows + 1), "ABCDEFGHJK"[:self._num_seats_per_row]
+        return range(1, 23), "ABCDEF"
+
+
+class Boeing777(Aircraft):
+    def model(self):
+        return "Boeing 777"
+
+    def seating_plan(self):
+        return range(1, 56), "ABCDEGHJK"
 
 
 def console_card_printer(passenger, seat, flight_number, aircraft):
@@ -117,12 +139,24 @@ def console_card_printer(passenger, seat, flight_number, aircraft):
 
 
 def make_flight():
-    f = Flight("BA758", Aircraft("G-EUPT", "Airbus A319", num_rows=22, num_seats_per_row=6))
+    f = Flight("BA758", AirbusA319("G-EUPT"))
     f.allocate_seat("12A", "Guido van Rossum")
     f.allocate_seat("12B", "Rasmus Lerdorf")
     f.allocate_seat("15F", "Bjarne Stroustrup")
     f.allocate_seat("15B", "Yukihiro Matsumoto")
-    return f
 
+    g = Flight("AF72", Boeing777("F-GSPS"))
+    g.allocate_seat("12A", "Larry Wall")
+    g.allocate_seat("12B", "Yukihiro Matsumoto")
+    g.allocate_seat("4A", "Brian Kernighah")
+    g.allocate_seat("4B", "Dennis Ritchie")
+
+    return f, g
+
+
+f, g = make_flight()
+print(f.aircraft_model(), f.num_available_seats())
+print(g.aircraft_model(), g.num_available_seats())
+# f.make_boarding_cards(console_card_printer)
 
 print('\nProgram Completed')
