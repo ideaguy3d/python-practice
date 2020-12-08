@@ -19,6 +19,19 @@ l3 = l1 + l2
 print('--', l3)
 print('--', s1)
 
+def parse_one():
+    str1 = """
+        name,age,lang
+        jake,23,C++
+        john,29,Java
+        julius,32,PHP
+    """
+    list_1 = [x.strip() for x in str1.split('\n') if len(x) > 2]
+    debug = 1
+
+
+parse_one()
+
 
 def approx_size(size, kilobyte=True):
     if size < 0:
