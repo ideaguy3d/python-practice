@@ -1,5 +1,6 @@
 import pandas as pd
 import zipfile
+import numpy as np
 
 unzip = False
 if unzip :
@@ -51,5 +52,25 @@ start_date_values_recheck = df_clean_rename.start_date.value_counts()
 
 for phrase in asap_list:
     assert phrase not in df_clean_rename.start_date.values
+
+# Analysis & Visualization
+# numerator
+asap_count = df_clean_rename.start_date.value_counts()['ASAP']
+# denominator, amount of non-empty start dates
+non_empty_counts = df_clean_rename.start_date.count()
+# percent of jobs with an urgent start date
+urgent_jobs = asap_count / non_empty_counts # 0.70863049
+
+viz = False
+labels = np.full(len(df_clean.start_date.value_counts()), '', dtype=object)
+labels[0] = 'ASAP'
+if viz: df_clean_rename.start_date.value_counts().plot(kind='pie')
+
+
+
+
+
+
+
 
 #
