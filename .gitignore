@@ -17,6 +17,5 @@ logs
 python-getting-started
 resources-names
 core-py/*.csv
-data
 csv
 jupyter
