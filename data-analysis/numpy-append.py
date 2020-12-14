@@ -5,6 +5,7 @@ red_df = panda.read_csv('data/winequality-red.csv')
 whi_df = panda.read_csv('data/winequality-white.csv')
 
 red_df.rename(columns={'total_sulfur-dioxide': 'total_sulfur_dioxide'}, inplace=True)
+whi_df.rename(columns={'total_sulfur-dioxide': 'total_sulfur_dioxide'}, inplace=True)
 
 # create color array for red dataframe
 color_red = np.repeat('red', red_df.shape[0])

@@ -29,7 +29,7 @@ class Graph(abc.ABC):
 
 
 class AdjacencyMatrixGraph(Graph):
-    def __init__(self, num_vertices, directed=False):
+    def __init__(self, num_vertices, directed=True):
         super(AdjacencyMatrixGraph, self).__init__(num_vertices, directed)
 
         self.matrix = np.zeros((num_vertices, num_vertices))

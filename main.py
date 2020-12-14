@@ -6,6 +6,7 @@ sys.path.insert(0, "C:/Users/ideaguy3d/Documents/GitHub/py-algorithm-prac/julius
 # import lists1   # lists 1
 # import str1     # strings 1
 import control_flow
+import lists1
 
 
 # Press Shift+F10 to execute it or replace it with your code.
