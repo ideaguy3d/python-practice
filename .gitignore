@@ -20,3 +20,4 @@ core-py/*.csv
 csv
 jupyter
 data/artists
+data/artworks
