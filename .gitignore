@@ -19,3 +19,4 @@ resources-names
 core-py/*.csv
 csv
 jupyter
+data/artists
