@@ -128,11 +128,11 @@ def artwork_biggest_dimensions(df):
 	# 1st 2 rows, 1st 2 columns
 	artist_0202 = df.iloc[0:2, 0:2]
 	
-	#force NaNs, "errors='coerce'" means on error: force to NaN
-	nans_mask  = pd.to_numeric(df['width'], errors='coerce')
+	# force NaNs, "errors='coerce'" means on error: force to NaN
+	nans_mask = pd.to_numeric(df['width'], errors='coerce')
 	df.loc[:, 'width'] = pd.to_numeric(df['width'], errors='coerce')
 	df.loc[:, 'height'] = pd.to_numeric(df['height'], errors='coerce')
-	area = df['width'] * df['height'] # Series obj
+	area = df['width'] * df['height']  # Series obj
 	# create a new column
 	df = df.assign(area=area)
 	df_width_head_sort = df['width'].sort_values().head()
@@ -143,7 +143,8 @@ def artwork_biggest_dimensions(df):
 	largest_area_idx = df['area'].idxmax()
 	largest_area_rows = df.loc[df['area'].idxmax(), :]
 	debug = 1
-	
+
+
 def groupby_practice():
 	"""
 	notable methods used
@@ -158,7 +159,7 @@ def groupby_practice():
 	group_data = {}
 	for name, group_df in group:
 		group_data[name] = group_df
-		
+	
 	# Aggregate min()
 	for name, group_df in df_small.groupby('artist'):
 		min_year = group_df['acquisitionYear'].min()
@@ -173,7 +174,7 @@ def groupby_practice():
 		most_frequent = values_counted.index[0]
 		new_medium = series.fillna(most_frequent)
 		return new_medium
-
+	
 	def transform_df(source_df):
 		group_dfs = []
 		for name, group_df in source_df.groupby('artist'):
@@ -185,8 +186,20 @@ def groupby_practice():
 		return new_df
 	
 	filled_df = transform_df(df_small)
-	debug = 1
 	
+	
+	do_group_ops = False # will take a while if True
+	if do_group_ops:
+		# use SeriesGroupBy.transform()
+		grouped_medium = df.groupby('artist')['medium']
+		df.loc[:, 'medium'] = grouped_medium.transform(fill_values)
+		# use SeriesGroupBy.agg()
+		grouped_acq_year = df.groupby('artist')['acquisitionYear']
+		min_acquisition_years = grouped_acq_year.agg(np.min)
+		
+	debug = 1
+
+
 # ------------------------------------------------------------------------------------
 
 
