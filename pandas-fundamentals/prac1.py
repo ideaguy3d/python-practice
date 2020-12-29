@@ -143,23 +143,70 @@ def artwork_biggest_dimensions(df):
 	largest_area_idx = df['area'].idxmax()
 	largest_area_rows = df.loc[df['area'].idxmax(), :]
 	debug = 1
+	
+def groupby_practice():
+	"""
+	notable methods used
+	- .loc()
+	- .copy()
+	:return:
+	"""
+	df_small = df.iloc[49980:50019, :].copy()
+	group = df_small.groupby('artist')
+	print(type(group))
+	
+	group_data = {}
+	for name, group_df in group:
+		group_data[name] = group_df
+		
+	# Aggregate min()
+	for name, group_df in df_small.groupby('artist'):
+		min_year = group_df['acquisitionYear'].min()
+		print(f"{name}: {min_year}")
+	
+	# Transform, fill empties with the most frequent values
+	def fill_values(series):
+		values_counted = series.value_counts()
+		if values_counted.empty:
+			return series
+		# .index[] on Series obj
+		most_frequent = values_counted.index[0]
+		new_medium = series.fillna(most_frequent)
+		return new_medium
+
+	def transform_df(source_df):
+		group_dfs = []
+		for name, group_df in source_df.groupby('artist'):
+			filled_df = group_df.copy()
+			filled_df.loc[:, 'medium'] = fill_values(group_df['medium'])
+			group_dfs.append(filled_df)
+		# .concat() on Pandas obj
+		new_df = pd.concat(group_dfs)
+		return new_df
+	
+	filled_df = transform_df(df_small)
+	debug = 1
+	
 # ------------------------------------------------------------------------------------
 
 
 # 'df3.pickle' was created in meta_one()
 df = pd.read_pickle(os.path.join('..', 'data', 'df3.pickle'))
-x = df.loc[1035, :]
-metadata_one()
+groupby_practice()
 
-artwork_biggest_dimensions(df)
-francis_bacon_artwork()
-distinct_artist()
 
-keys_to_use = ['id', 'all_artists', 'title', 'medium', 'acquisitionYear', 'height', 'width', 'units']
 
-df_json_1 = read_artworks_from_json(keys_to_use)
-sample_json = os.path.join('..', 'data', 'artworks', 'a', '000', 'a00001-1035.json')
-sample_record = get_record_from_file(sample_json, keys_to_use)
+# x = df.loc[1035, :]
+# metadata_one() # creates df3.pickle
+# artwork_biggest_dimensions(df)
+# francis_bacon_artwork()
+# distinct_artist()
+#
+# keys_to_use = ['id', 'all_artists', 'title', 'medium', 'acquisitionYear', 'height', 'width', 'units']
+#
+# df_json_1 = read_artworks_from_json(keys_to_use)
+# sample_json = os.path.join('..', 'data', 'artworks', 'a', '000', 'a00001-1035.json')
+# sample_record = get_record_from_file(sample_json, keys_to_use)
 
 # basic_practice()
 
