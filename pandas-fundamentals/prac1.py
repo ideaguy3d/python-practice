@@ -113,7 +113,12 @@ def francis_bacon_artwork():
 
 
 # indexing examples
-def artwork_biggest_dimensions():
+def artwork_biggest_dimensions(df):
+	"""
+	Practice indexing, creating new columns, and a few built-in methods
+	:param df:
+	:return:
+	"""
 	# random cell val, 1035 is the column label (not the indice pos)
 	artist_r1 = df.loc[1035, 'artist']
 	# cell on 1st row 1st col
@@ -126,19 +131,27 @@ def artwork_biggest_dimensions():
 	#force NaNs, "errors='coerce'" means on error: force to NaN
 	nans_mask  = pd.to_numeric(df['width'], errors='coerce')
 	df.loc[:, 'width'] = pd.to_numeric(df['width'], errors='coerce')
-	df_WxH = df['width'] * df['height']
+	df.loc[:, 'height'] = pd.to_numeric(df['height'], errors='coerce')
+	area = df['width'] * df['height'] # Series obj
+	# create a new column
+	df = df.assign(area=area)
 	df_width_head_sort = df['width'].sort_values().head()
 	df_width_tail_sort = df['width'].sort_values().tail()
-	
+	# use the built-in .max()
+	largest_area = df['area'].max()
+	# the idx of the .max()
+	largest_area_idx = df['area'].idxmax()
+	largest_area_rows = df.loc[df['area'].idxmax(), :]
 	debug = 1
 # ------------------------------------------------------------------------------------
 
 
 # 'df3.pickle' was created in meta_one()
 df = pd.read_pickle(os.path.join('..', 'data', 'df3.pickle'))
+x = df.loc[1035, :]
 metadata_one()
 
-artwork_biggest_dimensions()
+artwork_biggest_dimensions(df)
 francis_bacon_artwork()
 distinct_artist()
 
