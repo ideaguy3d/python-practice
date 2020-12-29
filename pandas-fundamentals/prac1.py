@@ -59,7 +59,6 @@ def get_record_from_file(file_path, keys):
 	:param keys:
 	:return:
 	"""
-	
 	with open(file_path) as artwork_file:
 		content = json.load(artwork_file)
 	
@@ -187,8 +186,7 @@ def groupby_practice():
 	
 	filled_df = transform_df(df_small)
 	
-	
-	do_group_ops = False # will take a while if True
+	do_group_ops = False  # will take a while if True
 	if do_group_ops:
 		# use SeriesGroupBy.transform()
 		grouped_medium = df.groupby('artist')['medium']
@@ -196,7 +194,34 @@ def groupby_practice():
 		# use SeriesGroupBy.agg()
 		grouped_acq_year = df.groupby('artist')['acquisitionYear']
 		min_acquisition_years = grouped_acq_year.agg(np.min)
-		
+		# or
+		min_acquisition_years_sh = grouped_acq_year.min()
+		# use SeriesGroupBy.filter()
+		grouped_titles = df.groupby('title')
+		condition = lambda x: len(x.index) > 1
+		filtered_df = grouped_titles.filter(condition)
+		debug2 = 2
+	
+	# Transform: replace all NaNs with the most common values
+	grp_medium = df.groupby('artist')['medium']
+	tran_df = grp_medium.transform(fill_values)
+	
+	# Aggregate: get the earliest year in each groups acquisition year
+	grp_acq_year = df.groupby('artist')['acquisitionYear']
+	agg_df = grp_acq_year.agg(np.min)
+	agg_df2 = grp_acq_year.min()
+	
+	# Filter: titles
+	grouped_titles = df.groupby('title')
+	# Methods:
+	# .size()
+	# .sort_values()
+	title_counts = grouped_titles.size().sort_values(ascending=False)
+	
+	# only titles that contain dupes stay
+	condition = lambda x: len(x.index) > 1
+	filter_df = grouped_titles.filter(condition)
+	filter_df.sort_values('title', inplace=True)
 	debug = 1
 
 
