@@ -2,6 +2,20 @@ import abc
 import numpy as np
 
 
+class Node:
+    def __init__(self, vertexId):
+        self.vertexId = vertexId
+        self.adjacency_set = set()
+
+    def add_edge(self, v):
+        if self.vertexId == v:
+            raise ValueError(f'Vertex {v} cannot be adjacent to itself')
+        self.adjacency_set.add(v)
+
+    def get_adjacent_vertices(self):
+        return sorted(self.adjacency_set)
+
+
 class Graph(abc.ABC):
     def __init__(self, num_vertices, directed=False):
         self.num_vertices = num_vertices
@@ -31,7 +45,6 @@ class Graph(abc.ABC):
 class AdjacencyMatrixGraph(Graph):
     def __init__(self, num_vertices, directed=True):
         super(AdjacencyMatrixGraph, self).__init__(num_vertices, directed)
-
         self.matrix = np.zeros((num_vertices, num_vertices))
 
     def add_edge(self, v1, v2, weight=1):
@@ -67,27 +80,58 @@ class AdjacencyMatrixGraph(Graph):
     def display(self):
         for i in range(self.num_vertices):
             for v in self.get_adjacent_vertices(i):
-                print (i, "-->", v)
-
-g = AdjacencyMatrixGraph(4)
-
-g.add_edge(0,1)
-g.add_edge(0,2)
-g.add_edge(2,3)
-
-for i in range(4):
-    print("Adjacent to: ", i, g.get_adjacent_vertices(i))
-
-for i in range(4):
-    print("Indegree: ", i, g.get_indegree(i))
-
-for i in range(4):
-    for j in g.get_adjacent_vertices(i):
-        print("Edge weight: ", i, " ", j, " weight: ", g.get_edge_weight(i, j))
-
-g.display()
-
-debug = 1
+                print(i, "-->", v)
 
 
+class AdjacencySetGraph(Graph):
+    def __init__(self, num_vertices, directed=False):
+        # class props
+        self.vertex_list = []
+        # invoke abstract class
+        super(AdjacencySetGraph, self).__init__(num_vertices, directed)
+        # construct list
+        for i in range(num_vertices):
+            self.vertex_list.append(Node(i))
 
+    def add_edge(self, v1, v2, weight=1):
+        if v1 >= self.num_vertices or v1 >= self.num_vertices or v1 < 0 or v2 < 0:
+            raise ValueError(f'Vertices {v1} and {v2} are out of bounds')
+        if weight != 1:
+            raise ValueError('Weights must be 1')
+        self.vertex_list[v1].add_edge(v2)
+        # if undirected graph
+        if not self.directed:
+            self.vertex_list[v2].add_edge(v1)
+
+    def get_adjacent_vertices(self, v):
+        pass
+
+    def get_indegree(self, v):
+        pass
+
+    def get_edge_weight(self, v1, v2):
+        pass
+
+    def display(self):
+        pass
+
+def use_adjacency_matrix_graph():
+    g = AdjacencyMatrixGraph(4)
+
+    g.add_edge(0, 1)
+    g.add_edge(0, 2)
+    g.add_edge(2, 3)
+
+    for i in range(4):
+        print("Adjacent to: ", i, g.get_adjacent_vertices(i))
+
+    for i in range(4):
+        print("Indegree: ", i, g.get_indegree(i))
+
+    for i in range(4):
+        for j in g.get_adjacent_vertices(i):
+            print("Edge weight: ", i, " ", j, " weight: ", g.get_edge_weight(i, j))
+
+    g.display()
+
+    debug = 1
