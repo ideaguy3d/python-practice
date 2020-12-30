@@ -104,34 +104,68 @@ class AdjacencySetGraph(Graph):
             self.vertex_list[v2].add_edge(v1)
 
     def get_adjacent_vertices(self, v):
-        pass
+        if v < 0 or v >= self.num_vertices:
+            raise ValueError(f'Cannot access vertex {v}')
+        return self.vertex_list[v].get_adjacent_vertices()
 
     def get_indegree(self, v):
-        pass
+        if v < 0 or v >= self.num_vertices:
+            raise ValueError(f'Cannot access vertex {v}')
+        indegree = 0
+        for i in range(self.num_vertices):
+            # ??? why do we pass in 'i' to get_adjacent_vertices() ???
+            if v in self.get_adjacent_vertices(i):
+                indegree = indegree + 1
+        return indegree
 
     def get_edge_weight(self, v1, v2):
-        pass
+        return 1
 
     def display(self):
-        pass
+        for i in range(self.num_vertices):
+            # ??? why do we pass in 'i' to get_adjacent_vertices() ???
+            for v in self.get_adjacent_vertices(i):
+                print(i, '-->', v)
+
+
+# -----------------------------------------------------------------------------------
+
 
 def use_adjacency_matrix_graph():
     g = AdjacencyMatrixGraph(4)
-
     g.add_edge(0, 1)
     g.add_edge(0, 2)
     g.add_edge(2, 3)
-
     for i in range(4):
         print("Adjacent to: ", i, g.get_adjacent_vertices(i))
-
     for i in range(4):
         print("Indegree: ", i, g.get_indegree(i))
-
     for i in range(4):
         for j in g.get_adjacent_vertices(i):
             print("Edge weight: ", i, " ", j, " weight: ", g.get_edge_weight(i, j))
-
     g.display()
-
     debug = 1
+
+
+def use_adjacency_set_graph():
+    NUM_VERTS = 4
+    g = AdjacencySetGraph(NUM_VERTS, directed=False)
+    g.add_edge(0, 1)
+    g.add_edge(0, 2)
+    g.add_edge(2, 3)
+    #
+    for i in range(NUM_VERTS):
+        print('Adjacent to: ', i, g.get_adjacent_vertices(i))
+    #
+    for i in range(NUM_VERTS):
+        print('Indegree: ', i, g.get_indegree(i))
+    #
+    for i in range(NUM_VERTS):
+        for j in g.get_adjacent_vertices(i):
+            print('Edge Weight: ', i, ' ', j, ' weight: ', g.get_edge_weight(i, j))
+
+
+use_adjacency_set_graph()
+
+
+# end of file
