@@ -233,7 +233,6 @@ df = pd.read_pickle(os.path.join('..', 'data', 'df3.pickle'))
 groupby_practice()
 
 
-
 # x = df.loc[1035, :]
 # metadata_one() # creates df3.pickle
 # artwork_biggest_dimensions(df)

@@ -1,0 +1,26 @@
+﻿playerID,coachID,firstName,lastName,birthYear,birthMon,birthDay
+,lapoiro01,ron ,lapointe,1949,11,13
+,andrst01,andrea,steven,1949,10,17
+,pammi01,pam,michael,1949,9,19
+bowneri01,bowneri01,rick,bowness,1955,1,14
+,saraan01,sara,andrea,1955,8,17
+,jordpa01,jordan,pam,1955,7,8
+adamru01,,russ,adam,1961,5,14
+richsa01,,richard,sara,1961,6,18
+stevjo01,,steven,jordan,1961,5,12
+michli01,,michael,liz,1964,4,20
+lizni01,,liz,nicole,1966,3,10
+nicomi01,,nicole,mike,1968,2,18
+mikeke01,,mike,kent,1969,1,18
+kentel01,,kent,elizabeth,1971,12,13
+elizbi01,,elizabeth,bill,1973,11,20
+billha01,,bill,hadley,1975,10,15
+hadlbu01,hadlbu01,hadley,buffy,1977,9,14
+buffch01,,buffy,chip,1978,8,12
+chipho01,,chip,homer,1980,7,26
+homema01,,homer,margaret,1982,6,13
+margco01,,margaret,courtney,1984,5,15
+courle01,,courtney,leonard,1986,4,20
+leonje01,,leonard,jeffrey,1987,3,13
+jeffem01,,jeffrey,emily,1989,2,15
+emilri01,,emily,richard,1991,1,6

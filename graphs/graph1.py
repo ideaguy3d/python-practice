@@ -165,7 +165,9 @@ def use_adjacency_set_graph():
             print('Edge Weight: ', i, ' ', j, ' weight: ', g.get_edge_weight(i, j))
 
 
-use_adjacency_set_graph()
+
+
+#use_adjacency_set_graph()
 
 
 # end of file
