@@ -1,5 +1,6 @@
 from collections import defaultdict
 import re
+import itertools
 
 """
 ~ comprehension form ~
@@ -134,6 +135,7 @@ def clean_states():
 		print(x)
 	return result
 
+
 def lambda_sort():
 	strings = ['foo', 'card', 'bar', 'aaaa', 'abab']
 	strings2 = strings[:]
@@ -141,6 +143,7 @@ def lambda_sort():
 	strings.sort(key=lambda x: len(set(list(x))))
 	strings2.sort(key=lambda x: len(set(x)))
 	pass
+
 
 def comprehension_practice_3():
 	pass
@@ -150,11 +153,19 @@ def comprehension_practice_4():
 	pass
 
 
+def itertools_module_practice():
+	first_letter = lambda x: x[0]
+	names = ['Alan', 'Adam', 'Wes', 'Will', 'Albert', 'Steven']
+	for letter, names in itertools.groupby(names, first_letter):
+		print(letter, list(names))
+	pass
+
 # dictionary_from_sequence()
 # default_values()
 # comprehension_practice_2()
 # clean_states()
-lambda_sort()
+# lambda_sort()
+itertools_module_practice()
 
 debug = 1
 
