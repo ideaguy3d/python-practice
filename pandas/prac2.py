@@ -1,6 +1,9 @@
 import os
 import pandas
 from pandas import isnull
+import numpy as np
+
+r = np.sign(np.random.randn(7))
 
 
 def mem_mib(df):
