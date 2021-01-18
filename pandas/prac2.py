@@ -2,13 +2,14 @@ import os
 import pandas
 from pandas import isnull
 
+
 def mem_mib(df):
-	print("{0:.2f} MB".format(
-		df.memory_usage().sum() / (1024 * 1024)
-	))
+    print("{0:.2f} MB".format(df.memory_usage().sum() / (1024 * 1024)))
+
 
 def make_categorical(df, col_name):
-	df.loc[:, col_name] = pandas.Categorical(df[col_name])
+    df.loc[:, col_name] = pandas.Categorical(df[col_name])
+
 
 master_df = pandas.read_csv(os.path.join('..', 'data', 'master.csv'))
 master_df_cp = master_df.copy()
@@ -42,7 +43,5 @@ playerId_nulls = isnull(master_df["playerID"]).value_counts()
 
 mem_mib(master_df)
 mem_mib(master_df_cp)
-
-
 
 debug = 1
