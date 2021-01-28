@@ -23,7 +23,8 @@ if output_excel:
 # sql
 output_sql = False
 if output_sql:
-    # sqlalchemy.exc.ArgumentError: Could not parse rfc1738 URL from string 'mysql:dbname=hack_match;host=localhost;user=root;password=""'
+    # sqlalchemy.exc.ArgumentError:
+    # Could not parse rfc1738 URL from string 'mysql:dbname=hack_match;host=localhost;user=root;password=""'
     with sqlalchemy.create_engine('mysql:dbname=hack_match;host=localhost;user=root;password=""') as conn:
         small_df.to_sql('Tate', conn)
 
