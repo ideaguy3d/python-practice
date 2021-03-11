@@ -26,7 +26,7 @@ import re
 
 def regex_practice():
     txt = "The rain in Spain"
-    r = re.search("^The.*b\S\w+$", txt)
+    r = re.search("^The.*\bS\w+$", txt)
     rstr = r.string
     rgrp = r.group()
     rspan = r.span()
@@ -38,14 +38,22 @@ def regex_practice():
     pass
 
 
+def interleave_sorted(letter_map, c_letter, c_letter_len):
+    for k, v in letter_map.items():
+        for i, x in enumerate(c_letter):
+            next_idx = i + 1
+            next_elem = c_letter[next_idx] if next_idx != c_letter_len else False
+            if next_elem and letter_map[x] > letter_map[next_elem]:
+                return False
+        return True
+
+
 def is_interleaving(a, b, c):
+    # create a list & map of letters
     a_list, b_list = list(a), list(b)
-    ab = [*a_list, *b_list]
-    letter_values = {}
-    i = 0
-    for v in ab:
-        letter_values[v] = i
-        i += 1
+    a_map = {v: i for i, v in enumerate(a_list)}
+    b_map = {v: i for i, v in enumerate(b_list)}
+
     # split c into a & b
     c_a, c_b, c_list = [], [], list(c)
     for v in c_list:
@@ -53,13 +61,24 @@ def is_interleaving(a, b, c):
             c_a.append(v)
         elif v in b_list:
             c_b.append(v)
+        else:
+            pass  # TODO: raise an exception
 
-    print('\n--\n')
-    print("letter_values = ", letter_values)
-    print("c_a = ", c_a)
-    print("c_b = ", c_b)
-    print('\n')
-    pass
+    # check a & c are sorted
+    c_a_len, c_b_len = len(c_a), len(c_b)
+    if interleave_sorted(a_map, c_a, c_a_len) and interleave_sorted(b_map, c_b, c_b_len):
+        return True
+    else:
+        '''  
+        print('\n--\n')
+        print("~ INTERLEAVE NOT SORTED ~")
+        print("a_map = ", a_map)
+        print("b_map = ", b_map)
+        print("c_a = ", c_a)
+        print("c_b = ", c_b)
+        print('\n')
+        '''
+        return False
 
 
 def run_test_suite(a, b, cs):
