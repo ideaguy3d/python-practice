@@ -17,13 +17,21 @@ def count_txt(dir) -> int:
     if isinstance(dir, list) and not is_root:
         return 0
     if is_root:
+        files = [f for f in dir if isinstance(f, list)]
         is_root = False
-    files = [f for f in dir if isinstance(f, list)][0]
+    else:
+        files = []
+        for k, v in dir.items():
+            files.append([])
+    if len(files) == 1:
+        files = files[0]
+
+    subdirs = [s for s in dir if isinstance(s, dict)]
     count = 0
     for file in files:
         if 'txt' in file:
             count += 1
-    for subdir in dir:
+    for subdir in subdirs:
         count += count_txt(subdir)
     return count
 
