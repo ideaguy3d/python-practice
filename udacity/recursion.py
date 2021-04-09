@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import statistics
 import time
+import copy
 
 
 def power_of_2(n):
@@ -52,9 +53,47 @@ def add_one(arr):
     return arr
 
 
+def deep_shallow_copy():
+    list1 = [0, 1, 2]
+    list2 = [7, 8, 9]
+    compoundList1 = [list1, list2]
+
+    # assignment operation
+    compoundList2 = compoundList1
+    print(id(compoundList1) == id(compoundList2))  # True
+    print(id(compoundList1[0]) == id(compoundList2[0]))  # True
+
+    # shallow copy
+    compoundList2 = copy.copy(compoundList1)
+    print(id(compoundList1) == id(compoundList2))  # False
+    print(id(compoundList1[0]) == id(compoundList2[0]))  # True
+
+    # deep copy
+    compoundList2 = copy.deepcopy(compoundList2)
+    print(id(compoundList1) == id(compoundList2))  # False
+    print(id(compoundList1[0]) == id(compoundList2[0]))  # False
+
+
+def permute(inputList):
+    finalCompoundList = []
+    if len(inputList) == 0:
+        finalCompoundList.append([])
+    else:
+        first_elem = inputList[0]
+        rest_list = inputList[slice(1, None)]
+        # RECURSIVE CALL
+        sub_compound_list = permute(rest_list)
+        for a_list in sub_compound_list:
+            for j in range(0, len(a_list) + 1):
+                b_list = copy.deepcopy(a_list)
+                b_list.insert(j, first_elem)
+                finalCompoundList.append(b_list)
+    return finalCompoundList
+
 print("\n")
 
 """
+deep_shallow_copy()
 print("power_of_2(5) = ", power_of_2(5))
 print("--")
 print("sum_integers(3) = ", sum_integers(3))
