@@ -65,7 +65,7 @@ def deep_shallow_copy():
 
     # shallow copy
     compoundList2 = copy.copy(compoundList1)
-    print(id(compoundList1) == id(compoundList2))  # False
+    print(id(compoundList1) == id(compoundList2))  # Falsed
     print(id(compoundList1[0]) == id(compoundList2[0]))  # True
 
     # deep copy
@@ -74,21 +74,37 @@ def deep_shallow_copy():
     print(id(compoundList1[0]) == id(compoundList2[0]))  # False
 
 
-def permute(inputList):
-    finalCompoundList = []
-    if len(inputList) == 0:
-        finalCompoundList.append([])
+def permute(input_list):
+    final_compound_list = []
+    if len(input_list) == 0:
+        final_compound_list.append([])
     else:
-        first_elem = inputList[0]
-        rest_list = inputList[slice(1, None)]
+        first_elem = input_list[0]
+        rest_list = input_list[slice(1, None)]
         # RECURSIVE CALL
         sub_compound_list = permute(rest_list)
         for a_list in sub_compound_list:
             for j in range(0, len(a_list) + 1):
                 b_list = copy.deepcopy(a_list)
                 b_list.insert(j, first_elem)
-                finalCompoundList.append(b_list)
-    return finalCompoundList
+                final_compound_list.append(b_list)
+    return final_compound_list
+
+
+def permute2(input_list):
+    final_compound_list = []
+    if len(input_list) == 0:
+        final_compound_list.append([])
+    else:
+        first_elem = input_list[0]
+        rest_list = input_list[slice(1, None)]
+        subcompound_list = permute2(rest_list)
+        for a_list in subcompound_list:
+            for i in range(0, len(a_list) + 1):
+                b_list = copy.deepcopy(a_list)
+                b_list.insert(i, first_elem)
+                final_compound_list.append(b_list)
+    return final_compound_list
 
 print("\n")
 
