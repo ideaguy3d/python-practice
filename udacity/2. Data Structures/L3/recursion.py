@@ -106,8 +106,25 @@ def permute2(input_list):
                 final_compound_list.append(b_list)
     return final_compound_list
 
-print("\n")
 
+def permutations(string):
+    return return_permutations(string, 0)
+
+
+def return_permutations(string, index):
+    output = []
+    if index >= len(string):
+        return [""]
+    small_output = return_permutations(string, index + 1)
+    cur_char = string[index]
+    for sub_str in small_output:
+        for i in range(len(small_output[0]) + 1):
+            new_sub_str = sub_str[0:i] + cur_char + sub_str[i:]
+            output.append(new_sub_str)
+    return output
+
+print("\n")
+print(permutations('abc'))
 """
 deep_shallow_copy()
 print("power_of_2(5) = ", power_of_2(5))
