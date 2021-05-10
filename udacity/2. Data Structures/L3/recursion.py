@@ -152,20 +152,66 @@ def keypad(num):
     elif 1 < num <= 9:
         return list(get_characters(num))
     last_digit = num % 10
-    # recursive call / call point
+    # recurrence
     small_output = keypad(num // 10)
     keypad_str = get_characters(last_digit)
-    output = list()
+    output = []
     for char in keypad_str:
         for item in small_output:
-            new_item = item + char
-            output.append(new_item)
+            output.append(item + char)
     return output
 
 
+def deep_reverse(arr):
+    if len(arr) < 1:
+        return arr
+    reversed_list = []
+    for item in arr[::-1]:
+        if type(item) is list:
+            # recurrence
+            item = deep_reverse(item)
+        reversed_list.append(item)
+    return reversed_list
+
+
+def add(num_one, num_two):
+    output = num_one + num_two
+    custom_print(output, num_one, num_two)
+    return output
+
+
+def custom_print(output, num_one, num_two):
+    print("The sum of {} and {} is: {}".format(num_one, num_two, output))
+
+
+def j_print_intergers(n):
+    if n < 0:
+        return
+    print(n)
+    j_print_intergers(n-1)
+
+
+def binary_search(arr, target):
+    return binary_search_func(arr, 0, len(arr) - 1, target)
+
+
+def binary_search_func(arr, start_index, end_index, target):
+    if start_index > end_index:
+        return -1
+    mid_point = (start_index + end_index) // 2
+    if target == arr[mid_point]:
+        return mid_point
+    elif target < arr[mid_point]:
+        return binary_search_func(arr, start_index, mid_point, target)
+    else:
+        return binary_search_func(arr, mid_point + 1, end_index, target)
+
+
 print("\n")
-print(permutations('abc'))
+j_print_intergers(5)
 """
+print(permutations('abc'))
+keypad(354)
 deep_shallow_copy()
 print("power_of_2(5) = ", power_of_2(5))
 print("--")
