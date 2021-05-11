@@ -198,18 +198,64 @@ def binary_search(arr, target):
 def binary_search_func(arr, start_index, end_index, target):
     if start_index > end_index:
         return -1
-    mid_point = (start_index + end_index) // 2
-    if target == arr[mid_point]:
-        return mid_point
-    elif target < arr[mid_point]:
-        return binary_search_func(arr, start_index, mid_point, target)
+    mid_idx = (start_index + end_index) // 2
+    if target == arr[mid_idx]:
+        return mid_idx
+    elif target < arr[mid_idx]:
+        return binary_search_func(arr, start_index, mid_idx, target)
     else:
-        return binary_search_func(arr, mid_point + 1, end_index, target)
+        return binary_search_func(arr, mid_idx + 1, end_index, target)
+
+
+def tower_of_hanoi(num_disks):
+    tower_of_hanoi_x(num_disks, 'S', 'A', 'D')
+
+
+def tower_of_hanoi_x(num_disks, source, aux, dest):
+    if num_disks == 0:
+        return
+    if num_disks == 1:
+        print(f'{source} {dest}')
+        return
+    tower_of_hanoi_x(num_disks - 1, source, dest, aux)
+    print(f'{source} {dest}')
+    tower_of_hanoi_x(num_disks - 1, aux, dest, source)
+
+
+def get_alpha(num):
+    return chr(num + 96)
+
+
+# a few test cases: [123, 1145]
+def all_codes(num):
+    if num == 0:
+        return [""]
+    remainder = num % 100
+    output_100 = []
+    if remainder <= 26 and num > 9:
+        # __RECURSIVE_CALL__
+        output_100 = all_codes(num // 100)
+        alpha = get_alpha(remainder)
+        for i, elem in enumerate(output_100):
+            output_100[i] = elem + alpha
+
+    remainder = num % 10
+    # __RECURSIVE_CALL__
+    output_10 = all_codes(num // 10)
+    alpha = get_alpha(remainder)
+    for i, elem in enumerate(output_10):
+        output_10[i] = elem + alpha
+
+    output = []
+    output.extend(output_100)
+    output.extend(output_10)
+    return output
 
 
 print("\n")
-j_print_intergers(5)
 """
+tower_of_honoi(4)
+j_print_intergers(5)
 print(permutations('abc'))
 keypad(354)
 deep_shallow_copy()
