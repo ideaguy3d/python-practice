@@ -188,7 +188,7 @@ def j_print_intergers(n):
     if n < 0:
         return
     print(n)
-    j_print_intergers(n-1)
+    j_print_intergers(n - 1)
 
 
 def binary_search(arr, target):
@@ -249,6 +249,22 @@ def all_codes(num):
     output = []
     output.extend(output_100)
     output.extend(output_10)
+    return output
+
+
+def subsets(arr):
+    return r_subsets(arr, 0)
+
+
+def r_subsets(arr, idx):
+    if idx >= len(arr):
+        return [[]]
+    sm_output = r_subsets(arr, idx + 1)
+    output = [x for x in sm_output]
+    for elem in sm_output:
+        current = [arr[idx]]
+        current.extend(elem)
+        output.append(current)
     return output
 
 
