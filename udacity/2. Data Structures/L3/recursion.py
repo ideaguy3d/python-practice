@@ -256,20 +256,36 @@ def subsets(arr):
     return r_subsets(arr, 0)
 
 
+# test case = [9, 12, 15]
 def r_subsets(arr, idx):
     if idx >= len(arr):
         return [[]]
     sm_output = r_subsets(arr, idx + 1)
     output = [x for x in sm_output]
-    for elem in sm_output:
-        current = [arr[idx]]
-        current.extend(elem)
-        output.append(current)
+    for e in sm_output:
+        cur = [arr[idx]]
+        cur.extend(e)
+        output.append(cur)
     return output
 
 
+def staircase(n):
+    if n <= 0:
+        return 1
+    if n == 1:
+        return 1
+    if n == 2:
+        return 2
+    if n == 3:
+        return 4
+    return staircase(n - 1) + staircase(n - 2) + staircase(n - 3)
+
+
+
 print("\n")
+
 """
+subsets([9, 12, 15])
 tower_of_honoi(4)
 j_print_intergers(5)
 print(permutations('abc'))
