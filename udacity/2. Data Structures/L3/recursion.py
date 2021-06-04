@@ -281,6 +281,16 @@ def staircase(n):
     return staircase(n - 1) + staircase(n - 2) + staircase(n - 3)
 
 
+def last_index(arr: list, target):
+    return last_index_r(arr, target, len(arr) - 1)
+
+
+def last_index_r(arr, target, index):
+    if index < 0:
+        return -1
+    if arr[index] == target:
+        return target
+    return last_index_r(arr, target, index - 1)
 
 print("\n")
 
