@@ -289,7 +289,7 @@ def last_index_r(arr, target, index):
     if index < 0:
         return -1
     if arr[index] == target:
-        return target
+        return index
     return last_index_r(arr, target, index - 1)
 
 print("\n")
