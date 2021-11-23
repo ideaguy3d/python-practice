@@ -5,9 +5,8 @@
 build/*
 config/settings.yml
 app.yaml
-.idea
 pmod-app/csv/*
-**/**/*.png
+**/**/*.svg
 vids
 *.mp4
 _elevate-recoveries/vids/php-sql.mp4
@@ -25,4 +24,5 @@ data/artwork_data - Copy.csv
 data/j
 .DS_Store
 cc/.DS_Store
+
 .DS_Store
