@@ -15,4 +15,5 @@ if __name__ == '__main__':
     for i in length_input:
         print(cuboid_volume(i))
 
+
 pass
